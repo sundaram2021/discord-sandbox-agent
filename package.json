@@ -1,0 +1,37 @@
+{
+  "name": "sandbox-agent",
+  "version": "0.0.1",
+  "description": "a sandbox agent built on",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.ts",
+    "dev": "node --watch src/index.ts",
+    "build": "tsc",
+    "format": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'",
+    "lint": "eslint 'src/**/*.{js,ts,jsx,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,jsx,tsx}' --fix"
+  },
+  "keywords": [
+    "tensorlake",
+    "sandbox",
+    "agent",
+    "sandbox-agent"
+  ],
+  "author": "sundaram2021",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "dependencies": {
+    "tensorlake": "^0.5.46"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.9.3",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
+    "prettier": "^3.8.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1"
+  }
+}
