@@ -45,7 +45,7 @@ async function main() {
   // By not passing a webhook URL, events will be handled locally.
   const durationMs = 24 * 60 * 60 * 1000; // 24 hours
   await discord.startGatewayListener({
-    waitUntil: (task) => task, // mock waitUntil for local development
+    waitUntil: (task: Promise<any>) => task, // mock waitUntil for local development
   }, durationMs);
 }
 

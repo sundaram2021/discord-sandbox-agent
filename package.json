@@ -21,8 +21,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.2",
     "@chat-adapter/discord": "^4.31.0",
     "@chat-adapter/state-memory": "^4.31.0",
+    "@vercel/functions": "^3.7.1",
     "chat": "^4.31.0",
     "tensorlake": "^0.5.46"
   },
