@@ -1,4 +1,4 @@
-import { bot } from "../../src/bot";
+import { bot } from "../../src/bot.js";
 
 export async function POST(request: Request) {
   try {
