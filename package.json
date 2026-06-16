@@ -22,6 +22,7 @@
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
     "@chat-adapter/discord": "^4.31.0",
+    "@chat-adapter/state-memory": "^4.31.0",
     "chat": "^4.31.0",
     "tensorlake": "^0.5.46"
   },
