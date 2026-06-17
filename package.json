@@ -1,32 +1,29 @@
 {
   "name": "sandbox-agent",
   "version": "0.0.1",
-  "description": "a sandbox agent built on",
+  "description": "AI sandbox agent with Anthropic + TensorLake code execution",
   "type": "module",
   "scripts": {
     "start": "node src/index.ts",
     "dev": "node --watch src/index.ts",
     "build": "tsc",
-    "format": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'",
-    "lint": "eslint 'src/**/*.{js,ts,jsx,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{js,ts,jsx,tsx}' --fix"
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix"
   },
   "keywords": [
     "tensorlake",
     "sandbox",
     "agent",
-    "sandbox-agent"
+    "anthropic"
   ],
   "author": "sundaram2021",
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.2",
-    "@chat-adapter/discord": "^4.31.0",
-    "@chat-adapter/state-memory": "^4.31.0",
-    "@vercel/functions": "^3.7.1",
-    "chat": "^4.31.0",
-    "tensorlake": "^0.5.46"
+    "tensorlake": "^0.5.46",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

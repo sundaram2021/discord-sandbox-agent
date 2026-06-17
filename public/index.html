@@ -3,234 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discord Sandbox Agent</title>
-  <!-- Modern Google Font -->
+  <title>Sandbox AI Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #0b0f19;
-      --card-bg: rgba(17, 24, 39, 0.7);
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-primary: #f3f4f6;
-      --text-secondary: #9ca3af;
-      --accent-color: #5865F2; /* Discord Purple */
-      --accent-glow: rgba(88, 101, 242, 0.4);
-      --success-color: #10b981;
-      --success-glow: rgba(16, 185, 129, 0.2);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Ambient background glows */
-    .glow-1 {
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 50%;
-      height: 50%;
-      background: radial-gradient(circle, rgba(88, 101, 242, 0.15) 0%, transparent 70%);
-      filter: blur(80px);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .glow-2 {
-      position: absolute;
-      bottom: -10%;
-      right: -10%;
-      width: 50%;
-      height: 50%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-      filter: blur(80px);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .container {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-color);
-      padding: 3rem;
-      border-radius: 24px;
-      max-width: 600px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
-                  0 0 40px rgba(88, 101, 242, 0.05);
-      z-index: 2;
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .container:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4), 
-                  0 0 50px rgba(88, 101, 242, 0.1);
-    }
-
-    .icon-wrapper {
-      width: 80px;
-      height: 80px;
-      background: rgba(88, 101, 242, 0.1);
-      border: 1px solid rgba(88, 101, 242, 0.2);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 2rem;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .icon {
-      width: 40px;
-      height: 40px;
-      fill: var(--accent-color);
-    }
-
-    h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      color: var(--success-color);
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 15px var(--success-glow);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--success-color);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    .endpoint-box {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .endpoint-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
-      font-weight: 600;
-      text-align: left;
-    }
-
-    .endpoint-url {
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: #a5b4fc;
-      word-break: break-all;
-      text-align: left;
-    }
-
-    .footer {
-      margin-top: 3rem;
-      font-size: 0.75rem;
-      color: rgba(156, 163, 175, 0.4);
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-      }
-      70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-      }
-      100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="glow-1"></div>
-  <div class="glow-2"></div>
-
-  <div class="container">
-    <div class="icon-wrapper">
-      <!-- Chat Bot Icon -->
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M9,9A1,1 0 0,0 8,10A1,1 0 0,0 9,11A1,1 0 0,0 10,10A1,1 0 0,0 9,9M15,9A1,1 0 0,0 14,10A1,1 0 0,0 15,11A1,1 0 0,0 16,10A1,1 0 0,0 15,9M12,14C9.67,14 7.62,15.25 6.5,17H17.5C16.38,15.25 14.33,14 12,14Z" />
-      </svg>
-    </div>
-
-    <h1>Discord Sandbox Agent</h1>
-    
-    <div class="status-badge">
-      <div class="status-dot"></div>
-      Active & Online
-    </div>
-
-    <p>
-      The backend is active and handling request signatures. Use the endpoint below in your Discord Developer Portal under the "Interactions Endpoint URL" setting.
-    </p>
-
-    <div>
-      <div class="endpoint-label">Interactions Webhook Endpoint</div>
-      <div class="endpoint-box">
-        <span class="endpoint-url">/api/webhooks/discord</span>
+  <!-- Main Chat Container -->
+  <div class="main-chat">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-title-group">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+          <line x1="6" y1="6" x2="6.01" y2="6"></line>
+          <line x1="6" y1="18" x2="6.01" y2="18"></line>
+        </svg>
+        <div class="chat-title">
+          <h1>Sandbox Workspace</h1>
+          <p>Isolated code execution engine with structured Generative UI</p>
+        </div>
+      </div>
+      
+      <!-- Actions and status -->
+      <div class="chat-actions">
+        <!-- Status Badge -->
+        <div class="status-badge" id="agent-state-badge">
+          <span class="status-dot" id="agent-status-dot"></span>
+          <span id="agent-status-text">Idle</span>
+        </div>
+        
+        <!-- New Chat Button -->
+        <button class="new-chat-btn" id="new-chat-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          New Chat
+        </button>
       </div>
     </div>
 
-    <div class="footer">
-      Powered by Tensorlake Sandbox & Chat SDK
+    <!-- Feed -->
+    <div class="chat-feed" id="chat-feed">
+      <div class="feed-container" id="feed-container">
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state">
+          <h1 class="empty-title">AI Sandbox Workspace</h1>
+          <p class="empty-desc">
+            Ask Claude to write, compile, and run code in an isolated TensorLake sandbox. The AI will output reasoning logs, tool call details, stdout/stderr consoles, and exported files as interactive download links.
+          </p>
+          <div class="empty-suggestions">
+            <div class="suggestion-card" id="sugg-calc">
+              <div class="suggestion-title">Calculate Fibonacci (Python)</div>
+              <div class="suggestion-desc">Generates the first 50 numbers & times the execution</div>
+            </div>
+            <div class="suggestion-card" id="sugg-fs">
+              <div class="suggestion-title">Create and Read File (JS)</div>
+              <div class="suggestion-desc">Writes system data to log.txt and reads it back</div>
+            </div>
+            <div class="suggestion-card" id="sugg-sys">
+              <div class="suggestion-title">System Metrics (Bash)</div>
+              <div class="suggestion-desc">Inspects the CPU, Memory, and Disk stats of the sandbox</div>
+            </div>
+            <div class="suggestion-card" id="sugg-fetch">
+              <div class="suggestion-title">HTTP Request (Python)</div>
+              <div class="suggestion-desc">Fetches JSON data from a public API & parses it</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="input-area">
+      <div class="input-container">
+        <textarea class="chat-input" id="chat-input" placeholder="Type a prompt for the AI Sandbox Agent... (Shift + Enter for new line)" rows="1"></textarea>
+        <div class="input-controls">
+          <div class="input-tip">Press Enter to send</div>
+          <button class="send-btn" id="send-btn">
+            Send
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
