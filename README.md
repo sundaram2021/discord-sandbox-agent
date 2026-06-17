@@ -10,6 +10,13 @@ This project implements a web application and server-side agent loop:
 - **Agent Loop**: Integrates the Anthropic SDK (`claude-3-5-sonnet`) with custom tools using schema validation via `zod`.
 - **Isolated Execution**: Leverages TensorLake's secure sandboxes to safely write, read, run code (Python, JS, TS, Bash), and export generated files.
 
+## Demo
+
+
+https://github.com/user-attachments/assets/eb9fefa2-7a20-42e6-87fa-ab18b0159874
+
+
+
 ## Architecture
 
 ```mermaid
